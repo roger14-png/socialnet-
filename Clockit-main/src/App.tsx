@@ -2,59 +2,43 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
-// removed duplicate useRef import
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import Music from "./pages/Music";
-
-const queryClient = new QueryClient();
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SocketProvider } from "@/contexts/SocketContext";
-import { MediaPlayerProvider, useMediaPlayer } from "@/contexts/MediaPlayerContext";
+import { MediaPlayerProvider } from "@/contexts/MediaPlayerContext";
 import { MediaNotification } from "@/components/media/MediaNotification";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
-import { FullPlayer } from '@/components/music/FullPlayer';
-import { useState, useEffect, useRef } from 'react';
-import heroMusicImage from '@/assets/hero-music.jpg';
-
-// Import pages from Zach's version
-  // Feed post navigation state and handlers removed
-  // ...existing code...
-import { SnappySection } from '@/components/home/SnappySection';
-import { ReelsSection } from '@/components/home/ReelsSection';
-import { GenreSection } from '@/components/home/GenreSection';
-import { BottomNav } from '@/components/layout/BottomNav';
-import { MiniPlayer } from '@/components/layout/MiniPlayer';
-import { Sidebar } from '@/components/layout/Sidebar';
-import { RightPanel } from '@/components/layout/RightPanel';
-import { FeedPost } from '@/components/home/FeedPost';
-import { MobileSuggestions } from '@/components/home/MobileSuggestions';
-import { Bell, Plus, Music as MusicIcon, Settings, Search } from "lucide-react";
-import { CommunitySection } from "./components/home/CommunitySection";
-import { FeaturedPlaylist } from "./components/music/FeaturedPlaylist";
-import { NotificationCenter } from "./components/notifications/NotificationCenter";
-import Appearance from "./pages/Appearance";
-import Auth from "./pages/Auth";
-import CameraTest from "./pages/CameraTest";
-import Chat from "./pages/Chat";
-import Discover from "./pages/Discover";
-import DownloadedMusic from "./pages/DownloadedMusic";
-import Groups from "./pages/Groups";
-import { Live } from "./pages/Live";
-import NotFound from "./pages/NotFound";
-import Notifications from "./pages/Notifications";
-import OfflineReels from "./pages/OfflineReels";
-import Onboarding from "./pages/Onboarding";
-import Podcasts from "./pages/Podcasts";
-import Post from "./pages/Post";
-import Profile from "./pages/Profile";
-import Reels from "./pages/Reels";
-import Snap from "./pages/Snap";
-import Stories from "./pages/Stories";
-
 
 import Index from "./pages/Index";
+import Music from "./pages/Music";
+import Stories from "./pages/Stories";
+import Groups from "./pages/Groups";
+import GroupDetail from "./pages/GroupDetail";
+import Profile from "./pages/Profile";
+import Reels from "./pages/Reels";
+import { Live } from "./pages/Live";
+import LiveFeed from "./pages/LiveFeed";
+import Chat from "./pages/Chat";
+import Auth from "./pages/Auth";
+import AuthCallback from "./pages/AuthCallback";
+import SpotifyCallback from "./pages/SpotifyCallback";
+import Onboarding from "./pages/Onboarding";
+import Settings from "./pages/Settings";
+import Appearance from "./pages/Appearance";
+import Search from "./pages/Search";
+import Discover from "./pages/Discover";
+import DownloadedMusic from "./pages/DownloadedMusic";
+import Podcasts from "./pages/Podcasts";
+import OfflineReels from "./pages/OfflineReels";
+import Notifications from "./pages/Notifications";
+import Post from "./pages/Post";
+import Snap from "./pages/Snap";
+import CameraTest from "./pages/CameraTest";
+import NotFound from "./pages/NotFound";
+
+const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -78,15 +62,20 @@ const App = () => (
                   <Route path="/library" element={<Navigate to="/music" replace />} />
 
                   <Route path="/groups" element={<Groups />} />
+                  <Route path="/groups/:id" element={<GroupDetail />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/profile/:userId" element={<Profile />} />
                   <Route path="/reels" element={<Reels />} />
                   <Route path="/live" element={<Live />} />
+                  <Route path="/live/:id" element={<Live />} />
+                  <Route path="/live-feed" element={<LiveFeed />} />
 
                   <Route path="/chat" element={<Chat />} />
                   <Route path="/messages" element={<Navigate to="/chat" replace />} />
 
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/auth/callback" element={<AuthCallback />} />
+                  <Route path="/auth/spotify/callback" element={<SpotifyCallback />} />
                   <Route path="/onboarding" element={<Onboarding />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/settings/:sectionId" element={<Settings />} />
